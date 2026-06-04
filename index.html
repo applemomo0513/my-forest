@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>杨浛浥 iris | My Forest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="home">
+
+  <main class="tree-scene" aria-label="杨浛浥 iris 的作品集树世界">
+    <div class="tree-container">
+
+      <img
+        class="tree-bg"
+        src="new.png"
+        alt="一棵手绘风格的大树，枝头悬挂着通往不同档案的相框"
+        loading="eager"
+      >
+
+      <img
+        class="bird-marker"
+        src="bird.png"
+        alt="A small bird perched on the branch"
+        aria-hidden="true"
+      >
+      <p class="path-prompt">Choose a path.</p>
+
+      <a
+        href="about.html"
+        class="tree-link tree-link--about frame"
+        title="Who am I?"
+      >
+        <img src="a.png" alt="About Me" loading="lazy">
+      </a>
+
+      <a
+        href="writings.html"
+        class="tree-link tree-link--writings frame"
+        title="How do I tell stories?"
+      >
+        <img src="w.png" alt="Writings" loading="lazy">
+      </a>
+
+      <a
+        href="gallery.html"
+        class="tree-link tree-link--gallery frame"
+        title="What have I done?"
+      >
+        <img src="g.png" alt="Gallery" loading="lazy">
+      </a>
+
+      <a
+        href="growing.html"
+        class="tree-link tree-link--growing"
+        title="What am I exploring now?"
+      >
+        <img id="chestImg" src="the%20treasure%20chest.png" alt="Growing" loading="lazy">
+      </a>
+
+    </div>
+  </main>
+
+  <section class="root-note" aria-label="关于作者">
+    <div class="root-note-inner">
+      <p class="tagline">A collection of stories, observations and experiments.</p>
+      <p class="contact">
+        <a href="mailto:eyeris13@163.com">eyeris13@163.com</a>
+        <span class="contact-sep">|</span>
+        <span class="signature-inline">杨浛浥 · iris</span>
+        <span class="contact-sep">|</span>
+        <a href="tel:19866778315">19866778315</a>
+      </p>
+      <p class="disciplines">Brand Growth · User Research · Marketing</p>
+    </div>
+  </section>
+
+  <div class="tree-tooltip" id="treeTooltip"></div>
+
+  <script>
+  (function() {
+    var tooltip = document.getElementById('treeTooltip');
+    var body = document.body;
+    var chestImg = document.getElementById('chestImg');
+    var returning = sessionStorage.getItem('chest-opened') === 'true';
+
+    // Treasure chest: if visited any sub-page before, show open state
+    if (returning) {
+      chestImg.src = 'open.png';
+      // Skip all entrance animations — show final state immediately
+      body.classList.add('bird-awake', 'prompt-awake', 'skip-intro');
+    } else {
+      // First visit: bird notices the visitor after a quiet moment
+      window.setTimeout(function() {
+        body.classList.add('bird-awake');
+      }, 1500);
+
+      // Text invitation and frame awakening — as the bird settles
+      window.setTimeout(function() {
+        body.classList.add('prompt-awake');
+      }, 2400);
+    }
+
+    document.querySelectorAll('.tree-link').forEach(function(link) {
+      link.addEventListener('click', function() {
+        sessionStorage.setItem('chest-opened', 'true');
+      });
+
+      link.addEventListener('mouseenter', function() {
+        tooltip.textContent = link.getAttribute('title');
+        tooltip.classList.add('tree-tooltip--visible');
+      });
+
+      link.addEventListener('mousemove', function(e) {
+        tooltip.style.left = e.clientX + 'px';
+        tooltip.style.top = e.clientY + 'px';
+      });
+
+      link.addEventListener('mouseleave', function() {
+        tooltip.classList.remove('tree-tooltip--visible');
+      });
+    });
+  })();
+  </script>
+
+</body>
+</html>

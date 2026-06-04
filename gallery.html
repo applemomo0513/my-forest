@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>作品档案 — My Forest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-home">My Forest</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="writings.html">Writings</a></li>
+      <li><a href="growing.html">Growing</a></li>
+    </ul>
+  </nav>
+
+  <main class="page page--gallery">
+    <h1 class="page-title">What have I done?</h1>
+    <p class="page-subtitle">把人的情绪、场景和需求翻译成内容、活动与增长动作。</p>
+
+    <div class="tabs" role="tablist" aria-label="作品分类">
+      <button class="tab tab--active" data-tab="see" type="button" role="tab" aria-selected="true">我怎么看人</button>
+      <button class="tab" data-tab="voice" type="button" role="tab" aria-selected="false">我怎么造声音</button>
+      <button class="tab" data-tab="stage" type="button" role="tab" aria-selected="false">我怎么搭场子</button>
+    </div>
+
+    <section class="archive-intro">
+      <p>这里不是成果堆砌，更像几份观察笔记：我从数据、评论区、活动现场和真实对话里寻找答案，再把答案变成可执行的策略。</p>
+    </section>
+
+    <div id="caseArchive" class="case-grid"></div>
+  </main>
+
+  <footer class="footer">
+    <p><a href="index.html">&larr; Back to the tree</a></p>
+  </footer>
+
+  <script>
+  var caseData = {
+    see: [
+      {
+        title: '某酸奶品牌',
+        category: '我怎么看人',
+        visual: 'Yogurt',
+        keywords: ['用户洞察', '直播间拉新'],
+        results: ['直播观看量破千万', '新客占比高于大盘35%', '季度销售额同比增长38%'],
+        story: '我在研究产品卖点的同时，也研究人。拆解用户数据时，我发现两群看似不同的人：“抗糖养生派”和“馋嘴星人”。她们的消费动机却非常相似：喜欢音乐、健身和休闲娱乐，希望偶尔放纵，又不想承担负担。于是我建议不要只把“益生菌”当成功能卖点，而是在直播间里，把它翻译成一种更具体的情绪：快乐之后，也可以轻一点。',
+        learning: '很多消费并不是因为用户被说服了。而是因为用户第一次觉得：这个品牌好像理解我。'
+      },
+      {
+        title: '某酒品牌',
+        category: '我怎么看人',
+        visual: 'Cocktail',
+        keywords: ['内容矩阵', '用户场景洞察'],
+        results: ['A3人群同比增长135%', '季度销量同比增长50%'],
+        story: '有一位鸡尾酒客户想在抖音做新品账号矩阵建设。那段时间我看了很多账号，翻了很多评论区，大部分品牌选择做一个“大而全”的官方号，但很少有人认真回答：“人为什么会想喝酒？”后来我发现，用户更在意的是：“闺蜜聚会喝什么”“一个人微醺的时候听什么歌”。他们买的不是酒，而是一种生活切片。于是我建议按照不同场景搭建矩阵：调酒账号负责知识内容、微短剧账号负责情绪场景、主账号负责品牌表达。',
+        learning: '好的内容生态不是统一发声。而是让不同的人，都能找到自己的位置。'
+      }
+    ],
+    voice: [
+      {
+        title: '某家电品牌',
+        category: '我怎么造声音',
+        visual: 'Home',
+        keywords: ['达人营销', '用户迁移洞察'],
+        results: ['达人 ROI 较日常提升 125%', '超行业均值 10%'],
+        story: '最开始，品牌默认合作家居垂类博主，但是后续数据进入瓶颈。我在挖掘达人时发现，一个母婴博主的CTR表现很突出。继续往下看之后，我发现年轻妈妈关注的不只是“育儿”，她们也在看家装、生活方式和理想家庭。她们真正被吸引的，其实是一种：“我也想过这样的生活。”于是我提出新方向：不再硬讲产品，而是把家电放进“儿童房改造”的生活场景里。',
+        learning: '营销很多时候不是“推荐产品”，而是帮助用户想象一种更好的生活。'
+      },
+      {
+        title: '某食品品牌',
+        category: '我怎么造声音',
+        visual: 'Festival',
+        keywords: ['节点曝光', '种草转化'],
+        results: ['累计3万+用户参与', '总播放量5000万', '品牌季度销量同比增长55%'],
+        story: '春节是一个强调热闹、互动和参与感的节点。我研究春节期间的平台内容后发现，真正容易扩散的东西，是能让人顺手参与进去的。所以我们选择“特效挑战赛”和平台抢红包活动冠名的方式。同时，我也在意用户被种草之后会发生什么：他们会搜索、犹豫、继续刷相关视频。于是我提议把购物入口提前藏进这些行为路径里，让品牌有曝光也有转化。',
+        learning: '真正厉害的传播，不是声音有多大，而是人会不会愿意把你的内容继续带进自己的生活里。'
+      }
+    ],
+    stage: [
+      {
+        title: '网易《天下》游戏IP',
+        category: '我怎么搭场子',
+        visual: 'Arcade',
+        keywords: ['线下体验', '用户情绪运营'],
+        results: ['活动日均接待试玩用户超500人次', '线上话题热度突破20w+'],
+        story: '在网易《天下》的 ChinaJoy 项目里，我们复刻了一间“旧网吧”。CRT显示器、机械键盘、组队下副本、点卡……很多玩家走进来的一瞬间，第一反应是：“我以前真的这样玩过。”当时我们也在讨论，怎么让一个偏老用户的游戏重新吸引年轻人。后来我提出，“千禧复古”本身其实已经变成一种新的年轻文化。线下的“复古网吧”开始和线上的达人内容一起传播，coser、游戏玩家、年轻创作者一起进入这个场景，再把它扩散回社交媒体。',
+        learning: '情怀营销，本质不是怀旧，而是重新打开一段被封存的记忆。'
+      },
+      {
+        title: '搜狐校园圈子活动',
+        category: '我怎么搭场子',
+        visual: 'Wish',
+        keywords: ['社区运营', '活动机制设计'],
+        results: ['2万+用户参与', '圈子新增粉丝1000+'],
+        story: '在运营绘画圈时，我发现许多画手希望获得曝光和约稿机会，而许多用户也希望找到合适的画师实现自己的创意。双方都有需求，却缺少连接彼此的渠道。于是我策划了「马良的许愿神笔」：画手上传作品、展示风格完成报名；用户则在约画区发布自己的愿望，画手可以自主接单。',
+        learning: '好的社区运营不是制造内容，而是创造人与人相遇的机会。当连接发生之后，内容会自然生长出来。'
+      }
+    ]
+  };
+
+  var tabs = document.querySelectorAll('.tab');
+  var archive = document.getElementById('caseArchive');
+
+  function renderCases(type) {
+    archive.innerHTML = caseData[type].map(function(item) {
+      return [
+        '<article class="case-card">',
+          '<div class="case-img case-img--' + type + '">',
+            '<span>' + item.visual + '</span>',
+            '<small>AI illustration placeholder</small>',
+          '</div>',
+          '<div class="case-text">',
+            '<p class="case-kicker">' + item.category + '</p>',
+            '<h2 class="case-brand">' + item.title + '</h2>',
+            '<div class="keyword-row">' + item.keywords.map(function(keyword) {
+              return '<span>' + keyword + '</span>';
+            }).join('') + '</div>',
+            '<ul class="result-list">' + item.results.map(function(result) {
+              return '<li>' + result + '</li>';
+            }).join('') + '</ul>',
+            '<p class="case-body">' + item.story + '</p>',
+            '<p class="case-insight"><strong>Key learning：</strong>' + item.learning + '</p>',
+          '</div>',
+        '</article>'
+      ].join('');
+    }).join('');
+  }
+
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var target = tab.getAttribute('data-tab');
+      tabs.forEach(function(item) {
+        item.classList.remove('tab--active');
+        item.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('tab--active');
+      tab.setAttribute('aria-selected', 'true');
+      renderCases(target);
+    });
+  });
+
+  renderCases('see');
+  </script>
+
+</body>
+</html>

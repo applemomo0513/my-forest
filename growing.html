@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorer's Collection — My Forest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-home">My Forest</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="writings.html">Writings</a></li>
+      <li><a href="growing.html">Growing</a></li>
+    </ul>
+  </nav>
+
+  <main class="page page--collection">
+    <h1 class="page-title">What am I exploring now?</h1>
+    <p class="page-subtitle">宝箱里不是文件清单，而是一组正在生长的研究、方案和实验。</p>
+
+    <section class="collection-scene">
+      <div class="collection-board" id="collectionBoard" aria-label="探索收藏物"></div>
+      <aside class="collection-panel" id="collectionPanel" aria-live="polite">
+        <img src="the%20treasure%20chest.png" alt="宝箱" loading="lazy">
+        <p>点击一件收藏物，查看它正在记录的方向。</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><a href="index.html">&larr; Back to the tree</a></p>
+  </footer>
+
+  <script>
+  var collections = [
+    {
+      object: 'Scroll',
+      icon: '卷',
+      title: 'Overseas Drama Marketing Plan',
+      type: 'PPT',
+      summary: '面向海外短剧/剧集内容的营销计划，关注内容定位、受众分层、平台节奏与种草转化。',
+      preview: '跨文化内容如何被看见、被讨论、被追更。',
+      topImage: 'treasure/海外营销/1.jpg',
+      bottomImage: 'treasure/海外营销/4.jpg'
+    },
+    {
+      object: 'Compass',
+      icon: '针',
+      title: 'Home Appliance Marketing Plan',
+      type: 'HTML',
+      summary: '家电营销方案，围绕家庭场景、达人迁移、内容话术和大促路径做策略整理。',
+      preview: '用户购买的常常不只是电器，也是对一种理想生活的想象。',
+      topImage: 'treasure/Compass.jpg',
+      link: 'https://applemomo0513.github.io/3/'
+    },
+    {
+      object: 'Wood Artifact',
+      icon: '木',
+      title: 'Furniture Mall Marketing Plan',
+      type: 'HTML',
+      summary: '家具商场营销方案，探索线下空间如何被重新叙事，并转化为可逛、可拍、可传播的内容场。',
+      preview: '把商场从交易空间改造成生活方式入口。',
+      topImage: 'treasure/Wood Artifact.jpg',
+      link: 'https://applemomo0513.github.io/1/'
+    },
+    {
+      object: 'Potion Bottle',
+      icon: '药',
+      title: 'AI Video Project',
+      type: 'Video',
+      summary: 'AI 视频相关实验，关注脚本、画面生成、节奏控制和品牌表达之间的关系。',
+      preview: '让工具不只是生成画面，而是参与表达。',
+      videoSrc: 'treasure/CO2.mp4'
+    }
+  ];
+
+  var board = document.getElementById('collectionBoard');
+  var panel = document.getElementById('collectionPanel');
+
+  board.innerHTML = collections.map(function(item, index) {
+    return [
+      '<button class="collectible" type="button" data-index="' + index + '">',
+        '<span class="collectible-icon">' + item.icon + '</span>',
+        '<span>',
+          '<strong>' + item.object + '</strong>',
+          '<small>' + item.title + '</small>',
+        '</span>',
+      '</button>'
+    ].join('');
+  }).join('');
+
+  function renderCollection(index) {
+    var item = collections[index];
+    var topHtml = '';
+    var bottomHtml = '';
+
+    // Top media: image or video
+    if (item.videoSrc) {
+      topHtml = '<div class="panel-top-media">' +
+        '<video controls playsinline>' +
+          '<source src="' + item.videoSrc + '" type="video/mp4">' +
+        '</video>' +
+        '</div>';
+    } else if (item.topImage) {
+      topHtml = '<div class="panel-top-media">' +
+        '<img src="' + item.topImage + '" alt="' + item.object + '" loading="lazy">' +
+        '</div>';
+    }
+
+    // Bottom image (Scroll only)
+    if (item.bottomImage) {
+      bottomHtml = '<div class="panel-bottom-media">' +
+        '<img src="' + item.bottomImage + '" alt="' + item.object + ' detail" loading="lazy">' +
+        '</div>';
+    }
+
+    // Link (Compass / Wood Artifact)
+    if (item.link) {
+      bottomHtml += '<a class="archive-link" href="' + item.link + '" target="_blank" rel="noopener">Open observation &rarr;</a>';
+    }
+
+    panel.innerHTML = [
+      topHtml,
+      '<p class="case-kicker">' + item.object + '</p>',
+      '<h2>' + item.title + '</h2>',
+      '<p>' + item.summary + '</p>',
+      '<p class="case-insight"><strong>Preview：</strong>' + item.preview + '</p>',
+      bottomHtml
+    ].join('');
+  }
+
+  document.querySelectorAll('.collectible').forEach(function(button) {
+    button.addEventListener('click', function() {
+      document.querySelectorAll('.collectible').forEach(function(item) {
+        item.classList.remove('collectible--active');
+      });
+      button.classList.add('collectible--active');
+      renderCollection(button.getAttribute('data-index'));
+    });
+  });
+
+  document.querySelector('.collectible').classList.add('collectible--active');
+  renderCollection(0);
+  </script>
+
+</body>
+</html>
