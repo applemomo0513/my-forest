@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+SC:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
-
 @font-face {
   font-family: 'MyFont';
   src: url('my-font.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+/* Serif fallback stack — no Google Fonts dependency */
+:root {
+  --font-serif-en: Georgia, 'Times New Roman', serif;
+  --font-serif-cn: 'Noto Serif SC', 'Source Han Serif SC', 'SimSun', 'STSong', serif;
+  --font-display: Georgia, 'Times New Roman', serif;
 }
 
 :root {
@@ -39,7 +44,7 @@ body {
   background-color: var(--bg);
   background-image: url('bg.png');
   background-repeat: repeat;
-  font-family: 'Noto Serif SC', 'Playfair Display', serif;
+  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', 'SimSun', serif;
 }
 
 body::before {
@@ -54,7 +59,7 @@ body::before {
 }
 
 h1, h2, h3 {
-  font-family: 'Playfair Display', 'Noto Serif SC', serif;
+  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
   color: var(--green);
   font-weight: 600;
   letter-spacing: 0;
@@ -98,7 +103,7 @@ button {
 
 .nav-home {
   color: var(--green);
-  font-family: 'Playfair Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -179,24 +184,40 @@ button {
 
 body.home {
   overflow-x: hidden;
-  background: var(--bg);
+  background: #f5efe4;
 }
 
 body.home::before {
   background:
-    radial-gradient(circle at 50% 92%, rgba(105, 125, 90, 0.16), transparent 24%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.58), rgba(239, 228, 208, 0.2));
+    radial-gradient(ellipse at 50% 35%, rgba(39, 72, 61, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 88%, rgba(105, 125, 90, 0.22) 0%, transparent 30%),
+    radial-gradient(ellipse at 25% 50%, rgba(64, 95, 115, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 75% 45%, rgba(64, 95, 115, 0.06) 0%, transparent 40%),
+    linear-gradient(180deg, rgba(20, 16, 10, 0.55) 0%, rgba(251, 250, 246, 0.12) 18%, rgba(251, 250, 246, 0.08) 85%, rgba(20, 16, 10, 0.45) 100%);
 }
 
 .tree-scene {
   position: relative;
   width: 100vw;
+  box-shadow:
+    inset 0 0 180px 60px rgba(20, 16, 10, 0.5),
+    inset 0 0 40px 10px rgba(20, 16, 10, 0.3);
 }
 
 .tree-container {
   position: relative;
   width: 100vw;
   z-index: 2;
+}
+
+.tree-scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(20, 16, 10, 0.25) 100%);
 }
 
 .tree-bg {
@@ -297,7 +318,7 @@ body.home::before {
   z-index: 6;
   opacity: 0;
   color: #2a1f18;
-  font-family: 'Playfair Display', 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
   font-size: 1.7rem;
   font-style: italic;
   font-weight: 500;
@@ -332,7 +353,7 @@ body.home::before {
 .root-note .tagline {
   margin: 0 0 1.4rem;
   color: var(--muted);
-  font-family: 'Playfair Display', 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
   font-size: 1.05rem;
   font-style: italic;
   font-weight: 400;
@@ -341,7 +362,7 @@ body.home::before {
 
 .root-note .signature-inline {
   color: var(--ink);
-  font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif SC', serif;
+  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
   font-size: 1.2rem;
   font-weight: 500;
 }
@@ -374,7 +395,7 @@ body.home::before {
 .root-note .disciplines {
   margin: 0;
   color: var(--muted);
-  font-family: 'Cormorant Garamond', 'Playfair Display', 'Noto Serif SC', serif;
+  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
   font-size: 0.95rem;
   font-style: italic;
   font-weight: 400;
@@ -387,7 +408,7 @@ body.home::before {
   pointer-events: none;
   opacity: 0;
   color: var(--ink);
-  font-family: 'MyFont', 'Noto Serif SC', serif;
+  font-family: 'MyFont', Georgia, 'Noto Serif SC', serif;
   font-size: 1.25rem;
   white-space: nowrap;
   text-shadow: 0 0 8px rgba(185, 130, 60, 0.28);
@@ -598,7 +619,7 @@ body.home::before {
 
 .case-img span {
   color: var(--green);
-  font-family: 'Playfair Display', serif;
+  font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.9rem;
   font-weight: 700;
 }
@@ -974,6 +995,15 @@ body.home::before {
 
   .page {
     padding-top: 6.8rem;
+  }
+
+  .tree-scene {
+    box-shadow: inset 0 0 80px 30px rgba(20, 16, 10, 0.35);
+  }
+
+  .tree-scene::after {
+    background:
+      radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(20, 16, 10, 0.18) 100%);
   }
 
   .tree-link--about { width: 23%; }
