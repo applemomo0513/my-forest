@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>故事书架 — My Forest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-home">My Forest</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="writings.html">Writings</a></li>
+      <li><a href="growing.html">Growing</a></li>
+    </ul>
+  </nav>
+
+  <main class="page page--library">
+    <h1 class="page-title">How do I tell stories?</h1>
+    <p class="page-subtitle">一座小型故事书架：人物、城市、校园和味觉记忆，被收进不同抽屉里。</p>
+
+    <section class="shelf" id="writingShelf" aria-label="文章档案"></section>
+  </main>
+
+  <footer class="footer">
+    <p><a href="index.html">&larr; Back to the tree</a></p>
+  </footer>
+
+  <script>
+  var writings = [
+    {
+      title: '等你们回家，我们的“爸爸妈妈”',
+      category: '官方融媒体中心',
+      theme: '人物报道',
+      intro: '疫情期间，一对夫妻同时奔赴抗疫前线，我选择跟随孩子的一天写等待与想念。',
+      summary: '这篇报道没有从宏大的抗疫叙事进入，而是把视角放在孩子身上：一天的等待、一次想念、一个家庭在特殊时期里的牵挂。',
+      excerpt: '有时候，共情不是把人物写得更高大，而是让读者看见他们被谁等待。',
+      link: 'https://mp.weixin.qq.com/s/vyO2djFZhI52K67BNjLCTQ'
+    },
+    {
+      title: '这里藏着“琐碎”与爱',
+      category: '校园公众号',
+      theme: '城市观察',
+      intro: '用更年轻、更具画面感的方式，讲述校园与城市之间那些细小但温暖的连接。',
+      summary: '文章试图从日常细节里寻找城市气质，把“琐碎”写成可以被触摸的生活现场。',
+      excerpt: '城市最动人的地方，常常不是地标，而是那些被我们反复路过的小事。',
+      link: 'https://mp.weixin.qq.com/s/m2L7fVaiLomNAZzY8Ct0qg'
+    },
+    {
+      title: '你眼中的五彩缤纷',
+      category: '校园公众号',
+      theme: '人物观察',
+      intro: '以“眼里的色彩”为引子，记录不同学生眼里同一个校园的不同切面。',
+      summary: '学霸、运动员与普通学生看到的校园并不相同。文章通过多视角叙事，让一个校园拥有了多层颜色。',
+      excerpt: '同一个地方，因为看见它的人不同，就会长出不同的光。',
+      link: 'https://mp.weixin.qq.com/s/sRHTZ3gyw3L7J0GRqIVv6Q'
+    },
+    {
+      title: '谁又动了我的能量',
+      category: '校园公众号',
+      theme: '公益推广',
+      intro: '用一棵树的视角给所有种树的人写信，让公益参与被感知、被记住。',
+      summary: '公益传播最难的不是让人参与，而是让参与者感受到意义。文章用视角转换，把环保行动写成一封感谢信。',
+      excerpt: '当一个人知道自己的行动正在改变什么，他就不只是参与者，也是故事的一部分。',
+      link: 'https://mp.weixin.qq.com/s/QfWLOlSQg6pTkD3F_oxh3g'
+    },
+    {
+      title: '这个，这个，二两米饭',
+      category: '个人公众号',
+      theme: '个人写作',
+      intro: '记录国庆期间寻访一家贵州餐馆的过程：那里藏着时令、童稚与节日记忆。',
+      summary: '这是一篇关于味觉记忆的个人写作。食物不仅是食物，也是一条回到某段生活经验里的路。',
+      excerpt: '有些味道不是为了填饱肚子，是为了确认自己还记得从哪里来。',
+      link: 'https://mp.weixin.qq.com/s/iQPgnpwuTYUNePH58JWjdA'
+    }
+  ];
+
+  var shelf = document.getElementById('writingShelf');
+
+  shelf.innerHTML = writings.map(function(item, index) {
+    return [
+      '<article class="writing-card">',
+        '<button class="writing-toggle" type="button" aria-expanded="false" aria-controls="writing-' + index + '">',
+          '<span class="writing-thumb" aria-hidden="true">' + item.category.slice(0, 2) + '</span>',
+          '<span class="writing-copy">',
+            '<span class="writing-category">' + item.category + ' · ' + item.theme + '</span>',
+            '<strong>' + item.title + '</strong>',
+            '<span>' + item.intro + '</span>',
+          '</span>',
+          '<span class="read-more">Read More</span>',
+        '</button>',
+        '<div class="writing-detail" id="writing-' + index + '">',
+          '<p><strong>Summary：</strong>' + item.summary + '</p>',
+          '<p><strong>Selected excerpt：</strong>' + item.excerpt + '</p>',
+          '<a href="' + item.link + '" target="_blank" rel="noopener">阅读全文</a>',
+        '</div>',
+      '</article>'
+    ].join('');
+  }).join('');
+
+  document.querySelectorAll('.writing-toggle').forEach(function(button) {
+    button.addEventListener('click', function() {
+      var card = button.closest('.writing-card');
+      var isOpen = card.classList.toggle('writing-card--open');
+      button.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+  </script>
+
+</body>
+</html>

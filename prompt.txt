@@ -1,0 +1,159 @@
+
+Portfolio Website Redesign PRD
+Project Background
+This is a personal portfolio website designed as an interactive tree-world inspired by Rusty Lake's Family Tree aesthetic.
+The portfolio is intended for applications in:
+- Brand Growth
+- Growth Marketing
+- User Research
+- Marketing
+- Operations
+The core theme of the website is:
+"A collection of stories, observations and experiments."
+The website should communicate:
+This person is someone who continuously observes people, understands behavior, and transforms insights into content, community, marketing and growth.
+Global Design Principles
+Atmosphere
+Maintain the existing illustrated, storybook-like visual style.
+Do NOT redesign into a corporate portfolio.
+The experience should feel like exploring a personal archive.
+Keywords:
+- Curious
+- Warm
+- Reflective
+- Exploratory
+- Human-centered
+
+---
+Homepage Redesign
+Hero Experience
+When the page loads:
+Stage 1
+Tree remains completely static.
+No glowing elements.
+Wait ~1.5 seconds.
+Stage 2
+The red bird performs a subtle hop animation.
+Stage 3
+Near the bird, fade in text:
+"Choose a path."
+Text should appear gradually.
+Handwritten or storybook style preferred.
+Stage 4
+Three picture frames and the treasure chest begin a very subtle glow animation.
+The glow should be gentle and slow.
+Avoid flashy effects.
+Goal:
+Guide visitors toward exploration.
+
+---
+Root Area
+Add the following text near the roots of the tree:
+A collection of stories, observations and experiments.
+Below it:
+杨浛浥·iris  |  eyeris13@163.com  |  19866778315
+Brand Growth · User Research · Marketing
+Typography should remain visually consistent with the world.
+Do not look like a standard resume.
+
+---
+About Me Page
+Purpose:
+Answer the question:
+"Who am I?"
+Layout:
+- Existing tree-ring illustration remains
+- Existing timeline remains
+修改部分具体见@about me.txt
+Gallery Page
+Purpose:
+Answer the question:
+"What have I done?"
+Structure:
+Three categories.
+
+---
+Category 1 我怎么看人 具体见 @1.txt
+Category 2 我怎么造声音 具体见@2.txt
+Category 3 我怎么搭场子 具体见 @3.txt
+For each project:
+Display:
+- Cover image
+- Project title
+- Keywords
+- Results
+- Story
+- Key learning
+Gallery Visual Assets
+Each project should have an AI-generated illustration.
+Create placeholders for images.Do not generate images automatically.
+Writings Page
+Purpose:
+Answer the question:
+"How do I tell stories?"
+Do NOT create a traditional blog.
+Do NOT display article screenshots.
+Create a library / archive style layout.
+Possible visual inspirations:
+- Bookshelf
+- Archive cards
+- Story collection
+Each writing card contains:
+- Title
+- Category
+- One-sentence introduction
+- Thumbnail image
+- Read More button
+When clicked:
+Expand a detail panel containing:
+- Summary
+- Selected excerpt
+- External article link
+
+---
+Writing Categories
+1. 官方融媒体中心
+2. 校园公众号
+3. 个人公众号
+具体见@wringtings.txt
+Treasure Chest Page
+Purpose:
+Answer the question:
+"What am I exploring now?"
+The treasure chest should NOT open into a file list.
+Instead:
+Open into an Explorer's Collection scene.
+Display collectible objects.
+Examples:
+Scroll → Overseas Drama Marketing Plan
+Compass → Home Appliance Marketing Plan
+Wood Artifact → Furniture Mall Marketing Plan
+Potion Bottle → AI Video Project
+Crystal Fragment → AI Observation Notes
+Notebook → Interview Assignments
+Each object is clickable.
+When clicked:
+Display:
+- Cover
+- Summary
+- Preview image
+- Link to full content
+Support:
+- PPT
+- HTML pages
+- Videos
+- PDFs
+Technical Requirements
+- Responsive design
+- Mobile-friendly
+- Smooth transitions
+- Lazy loading for images
+- Expandable cards
+- Modular content structure
+- Easy future content addition
+Future content should be configurable via JSON or data objects rather than hardcoded HTML.
+
+---
+Desired Final Impression
+After exploring the website, visitors should leave with the impression:
+"She is someone who studies people, tells stories, and turns insight into growth."

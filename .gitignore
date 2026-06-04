@@ -1,0 +1,5 @@
+*.txt
+!gh.txt
+prompt.txt
+.DS_Store
+Thumbs.db
