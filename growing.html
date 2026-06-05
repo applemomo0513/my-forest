@@ -118,9 +118,10 @@
         '</div>';
     }
 
-    // Link (Compass / Wood Artifact)
+    // Link (Compass / Wood Artifact / Potion Bottle)
     if (item.link) {
-      bottomHtml += '<a class="archive-link" href="' + item.link + '" target="_blank" rel="noopener">Open observation &rarr;</a>';
+      var linkLabel = item.linkLabel || 'Open observation &rarr;';
+      bottomHtml += '<a class="archive-link" href="' + item.link + '" target="_blank" rel="noopener">' + linkLabel + '</a>';
     }
 
     panel.innerHTML = [
