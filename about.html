@@ -38,7 +38,7 @@
           <div class="tl-node tl-node--r1">
             <div class="tl-tag">
               <span class="tl-date">2000年</span>
-              <span class="tl-desc">2000年5月出生于湖北恩施，一个说四川话的湖北人。</span>
+              <span class="tl-desc">出生于湖北恩施，一个说四川话的湖北人。</span>
             </div>
           </div>
 
@@ -59,21 +59,21 @@
           <div class="tl-node tl-node--r4">
             <div class="tl-tag">
               <span class="tl-date">2023年</span>
-              <span class="tl-desc">网易实习。第一次接触品牌用户运营。我开始思考：品牌如何搭建一个让用户愿意停留、交流与共创的空间。</span>
+              <span class="tl-desc">网易实习。第一次接触品牌用户运营。在这里，我开始了解：品牌如何搭建一个让用户愿意停留、交流与共创的空间。</span>
             </div>
           </div>
 
           <div class="tl-node tl-node--r5">
             <div class="tl-tag">
               <span class="tl-date">2024年</span>
-              <span class="tl-desc">字节实习。接触UGC活动、矩阵号运营与数字营销。我逐渐意识到：流量背后不是数字，而是一个个真实的人。每一次互动、转发和讨论，背后都有具体的情绪与需求。</span>
+              <span class="tl-desc">字节实习。通过接触UGC活动、矩阵号运营与数字营销，我逐渐意识到：流量背后不是数字，而是一个个真实的人。每一次互动、转发和讨论，背后都有具体的情绪与需求。</span>
             </div>
           </div>
 
           <div class="tl-node tl-node--r6">
             <div class="tl-tag">
               <span class="tl-date">2024年6月</span>
-              <span class="tl-desc">京东实习。第一次真正接触生意。开始学习如何通过用户洞察、内容策略与营销动作，把故事变成购物车里的数字。</span>
+              <span class="tl-desc">京东实习。在这里第一次真正接触生意。开始学习如何通过用户洞察、内容策略与营销动作，把故事变成购物车里的数字。</span>
             </div>
           </div>
 
@@ -93,6 +93,35 @@
   <footer class="footer">
     <p><a href="index.html">&larr; Back to the tree</a></p>
   </footer>
+
+  <script>
+  (function() {
+    var timeline = document.querySelector('.timeline');
+    if (!timeline) return;
+
+    // Enable animation mode — nodes become hidden, ready to reveal
+    timeline.classList.add('timeline--animated');
+
+    // Intersection Observer: reveal nodes as they enter the viewport
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('tl-node--revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -30px 0px'
+    });
+
+    // Observe all timeline nodes
+    var nodes = document.querySelectorAll('.tl-node');
+    for (var i = 0; i < nodes.length; i++) {
+      observer.observe(nodes[i]);
+    }
+  })();
+  </script>
 
 </body>
 </html>

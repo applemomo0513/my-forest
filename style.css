@@ -184,24 +184,28 @@ button {
 
 body.home {
   overflow-x: hidden;
-  background: #f5efe4;
+  background-color: #f5efe4;
+  background-image: url('bg.png');
+  background-repeat: repeat;
 }
 
 body.home::before {
+  z-index: 0;
   background:
-    radial-gradient(ellipse at 50% 35%, rgba(39, 72, 61, 0.12) 0%, transparent 55%),
-    radial-gradient(ellipse at 50% 88%, rgba(105, 125, 90, 0.22) 0%, transparent 30%),
-    radial-gradient(ellipse at 25% 50%, rgba(64, 95, 115, 0.08) 0%, transparent 40%),
-    radial-gradient(ellipse at 75% 45%, rgba(64, 95, 115, 0.06) 0%, transparent 40%),
-    linear-gradient(180deg, rgba(20, 16, 10, 0.55) 0%, rgba(251, 250, 246, 0.12) 18%, rgba(251, 250, 246, 0.08) 85%, rgba(20, 16, 10, 0.45) 100%);
+    radial-gradient(ellipse at 50% 50%, rgba(39, 72, 61, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, rgba(105, 125, 90, 0.1) 0%, transparent 70%),
+    radial-gradient(ellipse at 25% 50%, rgba(64, 95, 115, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 50%, rgba(64, 95, 115, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg,
+      rgba(20, 16, 10, 0.3) 0%,
+      transparent 8%,
+      transparent 92%,
+      rgba(20, 16, 10, 0.12) 100%);
 }
 
 .tree-scene {
   position: relative;
   width: 100vw;
-  box-shadow:
-    inset 0 0 180px 60px rgba(20, 16, 10, 0.5),
-    inset 0 0 40px 10px rgba(20, 16, 10, 0.3);
 }
 
 .tree-container {
@@ -217,7 +221,7 @@ body.home::before {
   z-index: 3;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(20, 16, 10, 0.25) 100%);
+    radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(20, 16, 10, 0.15) 100%);
 }
 
 .tree-bg {
@@ -336,15 +340,16 @@ body.home::before {
 
 .root-note {
   position: relative;
-  z-index: 1;
   width: 100%;
-  margin: 0;
-  padding: 2.2rem 2rem 2rem;
-  background: #f5efe4;
+  margin: 2rem 0 0;
+  padding: 1rem 2rem 2rem;
+  background: transparent;
   text-align: center;
 }
 
 .root-note-inner {
+  position: relative;
+  z-index: 1;
   width: min(620px, 100%);
   margin: 0 auto;
 }
@@ -458,6 +463,12 @@ body.home::before {
   border: 2px solid var(--ink);
   border-radius: 50%;
   background: var(--paper);
+  animation: ring-glow 3.5s ease-in-out infinite;
+}
+
+@keyframes ring-glow {
+  0%, 100% { box-shadow: 0 0 16px rgba(254, 248, 236, 0.8), 0 0 48px rgba(254, 248, 236, 0.4); }
+  50% { box-shadow: 0 0 36px rgba(254, 248, 236, 0.85), 0 0 80px rgba(254, 248, 236, 0.55), 0 0 120px rgba(254, 248, 236, 0.3); }
 }
 
 .ring-center img {
@@ -527,6 +538,50 @@ body.home::before {
 .tl-node--r5::before { width: 160px; }
 .tl-node--r6::before { width: 225px; }
 .tl-node--r7::before { width: 150px; }
+
+/* === Timeline scroll-reveal animations === */
+
+/* Nodes hidden until JS activates animation mode */
+.timeline--animated .tl-node {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.5s cubic-bezier(0.2, 0, 0.1, 1),
+              transform 0.5s cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+.timeline--animated .tl-node.tl-node--revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Staggered delays for each ring level */
+.timeline--animated .tl-node--r1.tl-node--revealed { transition-delay: 0s; }
+.timeline--animated .tl-node--r2.tl-node--revealed { transition-delay: 0.1s; }
+.timeline--animated .tl-node--r3.tl-node--revealed { transition-delay: 0.2s; }
+.timeline--animated .tl-node--r4.tl-node--revealed { transition-delay: 0.3s; }
+.timeline--animated .tl-node--r5.tl-node--revealed { transition-delay: 0.4s; }
+.timeline--animated .tl-node--r6.tl-node--revealed { transition-delay: 0.5s; }
+.timeline--animated .tl-node--r7.tl-node--revealed { transition-delay: 0.6s; }
+
+/* Golden connecting line — starts collapsed, draws on reveal */
+.timeline--animated .tl-node::before {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline--animated .tl-node.tl-node--revealed::before {
+  transform: scaleX(1);
+}
+
+/* Staggered delays for line draw (slightly ahead of text) */
+.timeline--animated .tl-node--r1.tl-node--revealed::before { transition-delay: 0s; }
+.timeline--animated .tl-node--r2.tl-node--revealed::before { transition-delay: 0.1s; }
+.timeline--animated .tl-node--r3.tl-node--revealed::before { transition-delay: 0.2s; }
+.timeline--animated .tl-node--r4.tl-node--revealed::before { transition-delay: 0.3s; }
+.timeline--animated .tl-node--r5.tl-node--revealed::before { transition-delay: 0.4s; }
+.timeline--animated .tl-node--r6.tl-node--revealed::before { transition-delay: 0.5s; }
+.timeline--animated .tl-node--r7.tl-node--revealed::before { transition-delay: 0.6s; }
 
 .tabs {
   display: flex;
@@ -680,6 +735,108 @@ body.home::before {
 .shelf {
   display: grid;
   gap: 0.85rem;
+}
+
+.shelf--bookshelf {
+  width: min(900px, 100%);
+  margin: -40px auto 0;
+  gap: 1.35rem;
+}
+
+.bookshelf-stage {
+  position: relative;
+  overflow: visible;
+  width: 100%;
+}
+
+.bookshelf-reference {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.shelf-overlays {
+  position: absolute;
+  inset: 0;
+}
+
+.shelf-book {
+  position: absolute;
+  display: block;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.shelf-book:hover {
+  transform: translateY(-8px);
+}
+
+/* Book spine hover quote — floating text, no box */
+.book-quote {
+  position: absolute;
+  z-index: 15;
+  pointer-events: none;
+  opacity: 0;
+  font-family: 'MyFont', Georgia, 'Times New Roman', 'Noto Serif SC', serif;
+  font-size: 1.1rem;
+  color: var(--green);
+  text-shadow: 0 0 8px rgba(185, 130, 60, 0.28);
+  text-align: center;
+  line-height: 1.6;
+  transform: translate(-50%, calc(-100% - 6px));
+  transition: opacity 0.18s ease;
+  white-space: nowrap;
+}
+
+.book-quote--visible {
+  opacity: 1;
+}
+
+
+
+
+.writing-feature {
+  min-height: 168px;
+  padding: 1.25rem 1.45rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(255, 248, 236, 0.8);
+  box-shadow: 2px 3px 0 rgba(47, 35, 24, 0.08);
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.writing-feature-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.writing-feature-image {
+  width: 130px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(128, 104, 77, 0.35);
+}
+
+.writing-feature-kicker {
+  margin-bottom: 0.3rem;
+  color: var(--red);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.writing-feature h2 {
+  margin-bottom: 0.7rem;
+  color: var(--green);
+}
+
+.writing-feature p:not(.writing-feature-kicker) {
+  width: min(680px, 100%);
+  color: var(--muted);
 }
 
 .writing-card {
@@ -996,15 +1153,6 @@ body.home::before {
     padding-top: 6.8rem;
   }
 
-  .tree-scene {
-    box-shadow: inset 0 0 80px 30px rgba(20, 16, 10, 0.35);
-  }
-
-  .tree-scene::after {
-    background:
-      radial-gradient(ellipse at 50% 50%, transparent 50%, rgba(20, 16, 10, 0.18) 100%);
-  }
-
   .tree-link--about { width: 23%; }
   .tree-link--writings { width: 23%; left: 22%; }
   .tree-link--gallery { width: 23%; left: 57%; }
@@ -1023,7 +1171,7 @@ body.home::before {
   }
 
   .root-note {
-    padding: 1.6rem 1rem 1.4rem;
+    padding: 0.8rem 1rem 1.4rem;
   }
 
   .root-note .tagline {
@@ -1058,6 +1206,16 @@ body.home::before {
 
   .writing-detail {
     padding: 0 1rem 1rem;
+  }
+
+  .writing-feature {
+    flex-direction: column;
+  }
+
+  .writing-feature-image {
+    width: 100%;
+    max-width: 200px;
+    margin-top: 0.5rem;
   }
 
   .collection-board {
