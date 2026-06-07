@@ -18,134 +18,228 @@
     </ul>
   </nav>
 
-  <main class="page page--collection">
+  <main class="page page--table">
     <h1 class="page-title">What am I exploring now?</h1>
-    <p class="page-subtitle">宝箱：一些正在生长的研究、方案和实验。</p>
+    <p class="page-subtitle">A drawer of unfinished ideas.</p>
 
-    <section class="collection-scene">
-      <div class="collection-board" id="collectionBoard" aria-label="探索收藏物"></div>
-      <aside class="collection-panel" id="collectionPanel" aria-live="polite">
-        <img src="the%20treasure%20chest.png" alt="宝箱" loading="lazy">
-        <p>点击一件收藏物，查看它正在记录的方向。</p>
-      </aside>
-    </section>
+    <div class="table-scene" id="tableScene">
+      <img class="table-bg" src="t.png" alt="木桌">
+      <div class="table-treasures">
+        <div class="treasure" style="left:16%; top:25%; width:20%;" data-index="0">
+          <img src="t1.png" alt="指南针">
+        </div>
+        <div class="treasure" style="right:5%; top:35%; width:40%;" data-index="1">
+          <img src="t2.png" alt="魔法药水">
+        </div>
+        <div class="treasure" style="left:48%; top:13%; width:15%;" data-index="2">
+          <img src="t3.png" alt="水晶">
+        </div>
+        <div class="treasure" style="left:23%; bottom:18%; width:33%;" data-index="3">
+          <img src="t4.png" alt="羊皮卷">
+        </div>
+      </div>
+
+      <!-- Hover tooltip -->
+      <div class="treasure-tooltip" id="treasureTooltip"></div>
+    </div>
   </main>
 
   <footer class="footer">
     <p><a href="index.html">&larr; Back to the tree</a></p>
   </footer>
 
+  <!-- Popup overlay -->
+  <div class="treasure-overlay" id="treasureOverlay">
+    <div class="treasure-popup" id="treasurePopup">
+      <button class="treasure-popup-close" id="popupClose" type="button" aria-label="关闭">&times;</button>
+      <h2 id="popupTitle"></h2>
+      <p class="popup-subtitle" id="popupSubtitle"></p>
+      <div class="popup-body" id="popupBody"></div>
+    </div>
+  </div>
+
   <script>
-  var collections = [
-    {
-      object: 'Scroll',
-      icon: '卷',
-      title: 'Overseas Drama Marketing Plan',
-      type: 'PPT',
-      summary: '面向海外短剧/剧集内容的营销计划，关注内容定位、受众分层、平台节奏与种草转化。',
-      preview: '跨文化内容如何被看见、被讨论、被追更。',
-      topImage: 'treasure/slides/1.jpg',
-      bottomImage: 'treasure/slides/4.jpg'
-    },
-    {
-      object: 'Compass',
-      icon: '针',
-      title: 'Home Appliance Marketing Plan',
-      type: 'HTML',
-      summary: '家电营销方案，围绕家庭场景、达人迁移、内容话术和大促路径做策略整理。',
-      preview: '用户购买的常常不只是电器，也是对一种理想生活的想象。',
-      topImage: 'treasure/Compass.jpg',
-      link: 'https://applemomo0513.github.io/3/'
-    },
-    {
-      object: 'Wood Artifact',
-      icon: '木',
-      title: 'Furniture Mall Marketing Plan',
-      type: 'HTML',
-      summary: '家具商场营销方案，探索线下空间如何被重新叙事，并转化为可逛、可拍、可传播的内容场。',
-      preview: '把商场从交易空间改造成生活方式入口。',
-      topImage: 'treasure/Wood Artifact.jpg',
-      link: 'https://applemomo0513.github.io/1/'
-    },
-    {
-      object: 'Potion Bottle',
-      icon: '药',
-      title: 'AI Video Project',
-      type: 'Video',
-      summary: 'AI 视频相关实验，关注脚本、画面生成、节奏控制和品牌表达之间的关系。',
-      preview: '让工具不只是生成画面，而是参与表达。',
-      videoSrc: 'treasure/CO2.mp4'
-    }
-  ];
+  (function() {
+    var tableScene = document.getElementById('tableScene');
+    var tooltip = document.getElementById('treasureTooltip');
+    var treasures = document.querySelectorAll('.treasure');
 
-  var board = document.getElementById('collectionBoard');
-  var panel = document.getElementById('collectionPanel');
+    // Treasure tooltip titles (kept in JS to avoid HTML attribute quoting issues)
+    var treasureTitles = [
+      '故事怎样跨越国界：为一部青春爱情剧设计的海外流量增长方案',
+      '碳元素的逆袭：一次关于科技传播的 AI 实验',
+      '精致懒人的生活哲学：一次关于低能量生活方式的观察',
+      '家，是动词：一次关于"理想生活"的场景实验'
+    ];
 
-  board.innerHTML = collections.map(function(item, index) {
-    return [
-      '<button class="collectible" type="button" data-index="' + index + '">',
-        '<span class="collectible-icon">' + item.icon + '</span>',
-        '<span>',
-          '<strong>' + item.object + '</strong>',
-          '<small>' + item.title + '</small>',
-        '</span>',
-      '</button>'
-    ].join('');
-  }).join('');
+    // Popup content data
+    var treasureData = [
+      {
+        title: '故事怎样跨越国界',
+        subtitle: '为一部青春爱情剧设计的海外流量增长方案',
+        body: [
+          '<p>如果一个故事跨越语言、文化与地域，它还能打动陌生人吗？</p>',
+          '<p>这是一份面向东南亚市场的剧集海外营销方案，从用户洞察、内容传播、社区互动到会员转化，搭建完整增长链路。</p>',
+          '<img class="popup-image" src="treasure/t1-1.jpg" alt="用户洞察数据">',
+          '<p class="popup-section-label">🔍 Observation · 我观察到了什么</p>',
+          '<ul class="popup-list"><li>年轻女性关注情感张力与角色关系</li><li>家庭用户偏好长线情绪陪伴</li><li>部分男性用户被赛车、街头文化吸引</li></ul>',
+          '<p>不同用户会因为不同理由进入同一个故事。核心问题不是获取流量，而是如何为不同人群设计不同的入口。</p>',
+          '<img class="popup-image" src="treasure/t1-2.jpg" alt="传播策略">',
+          '<p class="popup-section-label">🧪 Experiment · 我尝试了什么</p>',
+          '<p>围绕用户旅程，设计三阶段传播策略：</p>',
+          '<div class="popup-phase"><strong>预热期</strong> — KOL Reaction 内容 · 倒计时海报 · 高能预告释放</div>',
+          '<div class="popup-phase"><strong>热播期</strong> — TikTok / Shorts 内容矩阵 · 主演互动 · 跨年夜同步直播</div>',
+          '<div class="popup-phase"><strong>长尾期</strong> — UGC 话题挑战 · 校园放映活动 · 社群裂变与会员激励</div>',
+          '<p>让用户从：认知 → 兴趣 → 参与 → 订阅，逐步完成转化。</p>',
+          '<img class="popup-image" src="treasure/t1-3.jpg" alt="三阶段策略">',
+          '<p class="popup-section-label">💡 Featured Ideas · 几个有趣的传播切口</p>',
+          '<ul class="popup-list"><li><strong>跨年夜直播</strong>：让观众与角色在同一个时间跨年</li><li><strong>MOON 咖啡联名</strong>：放大剧中重要记忆符号</li><li><strong>闪电（小狗）账号</strong>：利用萌宠降低跨文化传播门槛</li><li><strong>未寄出的信</strong>：在线下空间重现剧中遗憾与情感</li></ul>',
+          '<img class="popup-image" src="treasure/t1-4.jpg" alt="传播切口">',
+          '<p class="popup-section-label">📝 What I Learned · 我学到了什么</p>',
+          '<p>一次成功传播不是某个爆款内容，而是一条完整链路：用户洞察 → 内容传播 → 社区互动 → 商业转化。其中的核心是：同一个故事，如何被不同文化背景的人理解和喜爱。</p>'
+        ]
+      },
+      {
+        title: '碳元素的逆袭',
+        subtitle: '一次关于科技传播的 AI 实验',
+        body: [
+          '<p>大多数人不会阅读专利，也不会主动研究碳捕集技术。但这并不意味着这些技术不重要。</p>',
+          '<p>这个项目源于一个问题：当复杂技术走出实验室之后，应该如何被普通人理解？我尝试利用 AI，将论文、专利与技术资料转化为一个关于碳元素的故事。</p>',
+          '<video class="popup-video" controls playsinline><source src="treasure/t4-1.mp4" type="video/mp4"></video>',
+          '<p class="popup-section-label">🔍 Observation · 我观察到了什么</p>',
+          '<p>很多硬科技企业都面临同一个问题：技术价值高、传播门槛高。大量信息停留在论文、专利、技术报告，这些内容对专业人士有价值，但普通用户很难理解。</p>',
+          '<p>于是我开始思考：能否用故事讲技术，而不是用术语讲技术？</p>',
+          '<p class="popup-section-label">🧪 Experiment · 我尝试了什么</p>',
+          '<p>我将技术传播拆成三个步骤：</p>',
+          '<div class="popup-phase"><strong>理解技术</strong>：梳理碳捕集与转化技术链路</div>',
+          '<div class="popup-phase"><strong>转译技术</strong>：利用 AI 将论文与专利内容转化为故事脚本</div>',
+          '<div class="popup-phase"><strong>可视化技术</strong>：通过短视频形式呈现——从工业废气到绿色燃料的完整旅程</div>',
+          '<p>核心不是解释技术细节，而是让更多人理解：为什么这项技术值得被关注。</p>',
+          '<p class="popup-section-label">🏭 如果把它当成一个品牌来运营</p>',
+          '<p>在做视频的过程中，我进一步思考：如果我是这家公司的运营负责人，应该如何持续讲好这个故事？于是延伸设计了一套内容运营框架。</p>',
+          '<img class="popup-image" src="treasure/t4.jpg" alt="内容运营框架">',
+          '<p class="popup-section-label">📝 What I Learned · 我学到了什么</p>',
+          '<p>这个项目让我重新思考 AI 的价值。以前我认为 AI 是生产工具。后来发现：它可以帮助不同领域的人互相理解。对于传统行业来说，真正困难的往往不是技术研发，而是：如何让更多人理解这项技术为什么重要。而这正是内容与运营存在的意义。</p>'
+        ]
+      },
+      {
+        title: '精致懒人的生活哲学',
+        subtitle: '一次关于低能量生活方式的观察',
+        body: [
+          
+          '<p>这份方案围绕海尔三筒洗衣机展开，slogan 我选择了"敲一下，懒得刚刚好"，来源于海尔三筒洗衣机「AI 敲敲洗」——轻敲专属筒自动启动的功能，自带解压感和仪式感，天生适合社交传播。</p>',
+          '<img class="popup-image" src="treasure/t2-1.jpg" alt="海尔三筒洗衣机">',
+          '<p class="popup-section-label">🔍 Observation · 我观察到了什么</p>',
+          '<p>过去关于家务产品的传播，总在强调：勤劳、收纳、自律、精致生活……但越来越多年轻人面临的是：精力不足。他们不是不爱干净，只是希望用更少力气维持体面。三筒洗衣机解决的，不是「卫生认知」，而是「精致生活的执行成本」。</p>',
+          '<p>于是我将目标人群定位为：精致懒人。把「懒」从负面标签变成生活态度，让三筒洗衣机成为「精致懒人」的身份符号。</p>',
+          '<img class="popup-image" src="treasure/t2-2.jpg" alt="精致懒人洞察">',
+          '<p class="popup-section-label">🧪 Experiment · 我尝试了什么</p>',
+          '<p>结合产品卖点，分层内容矩阵：</p>',
+          '<div class="popup-phase"><strong>达人分层矩阵</strong></div>',
+          '<ul class="popup-list"><li><strong>头部</strong>（1-2位）— 引爆话题 · 制造声量</li><li><strong>腰部</strong>（5-10位）— 深内容 · 强互动</li><li><strong>素人 KOC</strong>（100+）— 铺量 · 真实感</li></ul>',
+          '<div class="popup-phase"><strong>内容层传播策略</strong></div>',
+          '<ul class="popup-list"><li><strong>生活崩溃型</strong>：下班回家 · 夜宵结束 · 累瘫 · 不想分类 — 负责情绪共鸣</li><li><strong>秩序恢复型</strong>：分类洗 · 香香睡衣 · 真丝护理 · 精致感恢复 — 负责生活向往</li><li><strong>挑战传播型</strong>：参与 UGC 话题破圈 — 负责破圈</li></ul>',
+          '<img class="popup-image" src="treasure/t2-3.png" alt="内容策略">',
+          '<p class="popup-section-label">💡 Featured Ideas · 几个有趣的传播切口</p>',
+          '<p>我希望把「懒」重新定义成一种生活态度。因此设计了两个核心创意：</p>',
+          '<ul class="popup-list"><li><strong>懒人敲筒挑战</strong>：把功能动作变成传播动作</li><li><strong>精致懒人测试</strong>：把产品卖点转化为人格标签</li></ul>',
+          '<p>在介绍洗衣机的同时，也是帮助用户找到同类。</p>',
+          '<img class="popup-image" src="treasure/t2-4.png" alt="传播创意">',
+          '<p class="popup-section-label">📝 What I Learned · 我学到了什么</p>',
+          '<p>以前我总觉得营销是在推广产品。后来发现，很多产品成功的原因，是它们帮助用户表达自己。洗衣机卖的不仅是洗衣功能，还是一种「累了一天，也能轻松保持体面」的生活态度。</p>'
+        ]
+      },
+      {
+        title: '家，是动词',
+        subtitle: '一次关于"理想生活"的场景实验',
+        body: [
+          '<p>家具城对我们来说已经并不陌生，但如果家具卖场卖的不只是家具，而是我们对于未来生活的想象，会发生什么？</p>',
+          '<p>我脑海中的家不是名词，而是一连串正在发生的动作。于是我想——让家具城，从家具展览的货架，变成承载回忆和想象的空间。</p>',
+          '<img class="popup-image" src="treasure/t3-1.png" alt="家具城">',
+          '<p class="popup-section-label">🔍 Observation · 我观察到了什么</p>',
+          '<p>传统家具城的本质是家具卖场。除了有备而来的消费者，大多数人进入家具城时，并不知道自己想买什么。他们只是在脑海中，有一些模糊的对理想的家的印象和向往——"我想把生活变得更好一点。"于是，家具城的家具不只是一个个商品，而是拼凑出未来理想生活的素材库。比起展示家具参数，更重要的是帮助用户想象未来。</p>',
+          '<p class="popup-section-label">🧪 Experiment · 我尝试了什么</p>',
+          '<p>整个体验被设计成三步：</p>',
+          '<div class="popup-phase"><strong>种子阶段</strong>：在家具城大厅看见不同风格家具的微缩模型，为理想中的家获取灵感。</div>',
+          '<img class="popup-image" src="treasure/t3-2.png" alt="微缩模型">',
+          '<div class="popup-phase"><strong>搭建阶段</strong>：在各个楼层的互动样板间，自由搭配家具，完成打卡，领取印有不同品牌家具的海报纸。</div>',
+          '<img class="popup-image" src="treasure/t3-3.png" alt="互动样板间">',
+          '<div class="popup-phase"><strong>拼贴阶段</strong>：剪下喜欢的品牌家具，贴在印有自己房间照片的背景纸上，拼成"我理想中的家"。</div>',
+          '<p>整个过程更像创作，而不是购物。</p>',
+          '<img class="popup-image" src="treasure/t3-4.png" alt="拼贴创作">',
+          '<p class="popup-section-label">📱 线下 + 线上 · 全链路整合</p>',
+          '<p>线下体验数据可追踪，同步线上传播：</p>',
+          '<img class="popup-image" src="treasure/t3-5.png" alt="线上传播数据">',
+          '<ul class="popup-list"><li><strong>📕 小红书 · 🎵 抖音</strong> — 话题 #月星把家变成动词：消费者发布现场摆放家具、拼贴海报的照片或视频，参与即有机会获得月星家居礼品卡</li><li><strong>👶 儿童区独立话题</strong> — #月星小小设计师：展示孩子"我画我家"作品，点赞前三名获得儿童家具优惠券</li></ul>',
+          '<p class="popup-section-label">📝 What I Learned · 我学到了什么</p>',
+          '<p>很多时候，人们感兴趣的不只是家具，他们也在思考：自己未来想成为的样子。这个方案我真正在思考的地方是，流量的来源不仅仅是商品，也在于帮助人们完成想象。</p>'
+        ]
+      }
+    ];
 
-  function renderCollection(index) {
-    var item = collections[index];
-    var topHtml = '';
-    var bottomHtml = '';
-
-    // Top media: image or video
-    if (item.videoSrc) {
-      topHtml = '<div class="panel-top-media">' +
-        '<video controls playsinline>' +
-          '<source src="' + item.videoSrc + '" type="video/mp4">' +
-        '</video>' +
-        '</div>';
-    } else if (item.topImage) {
-      topHtml = '<div class="panel-top-media">' +
-        '<img src="' + item.topImage + '" alt="' + item.object + '" loading="lazy">' +
-        '</div>';
-    }
-
-    // Bottom image (Scroll only)
-    if (item.bottomImage) {
-      bottomHtml = '<div class="panel-bottom-media">' +
-        '<img src="' + item.bottomImage + '" alt="' + item.object + ' detail" loading="lazy">' +
-        '</div>';
-    }
-
-    // Link (Compass / Wood Artifact / Potion Bottle)
-    if (item.link) {
-      var linkLabel = item.linkLabel || 'Open observation &rarr;';
-      bottomHtml += '<a class="archive-link" href="' + item.link + '" target="_blank" rel="noopener">' + linkLabel + '</a>';
-    }
-
-    panel.innerHTML = [
-      topHtml,
-      '<p class="case-kicker">' + item.object + '</p>',
-      '<h2>' + item.title + '</h2>',
-      '<p>' + item.summary + '</p>',
-      '<p class="case-insight"><strong>Preview：</strong>' + item.preview + '</p>',
-      bottomHtml
-    ].join('');
-  }
-
-  document.querySelectorAll('.collectible').forEach(function(button) {
-    button.addEventListener('click', function() {
-      document.querySelectorAll('.collectible').forEach(function(item) {
-        item.classList.remove('collectible--active');
+    // --- Hover tooltip ---
+    treasures.forEach(function(tr) {
+      tr.addEventListener('mouseenter', function(e) {
+        var idx = Number(tr.getAttribute('data-index'));
+        var title = treasureTitles[idx];
+        if (!title) return;
+        var stageRect = tableScene.getBoundingClientRect();
+        tooltip.textContent = title;
+        tooltip.style.left = (e.clientX - stageRect.left) + 'px';
+        tooltip.style.top = (e.clientY - stageRect.top) + 'px';
+        tooltip.classList.add('treasure-tooltip--visible');
       });
-      button.classList.add('collectible--active');
-      renderCollection(button.getAttribute('data-index'));
+      tr.addEventListener('mousemove', function(e) {
+        var stageRect = tableScene.getBoundingClientRect();
+        tooltip.style.left = (e.clientX - stageRect.left) + 'px';
+        tooltip.style.top = (e.clientY - stageRect.top) + 'px';
+      });
+      tr.addEventListener('mouseleave', function() {
+        tooltip.classList.remove('treasure-tooltip--visible');
+      });
     });
-  });
 
-  document.querySelector('.collectible').classList.add('collectible--active');
-  renderCollection(0);
+    // --- Popup ---
+    var overlay = document.getElementById('treasureOverlay');
+    var popupTitle = document.getElementById('popupTitle');
+    var popupSubtitle = document.getElementById('popupSubtitle');
+    var popupBody = document.getElementById('popupBody');
+    var popupClose = document.getElementById('popupClose');
+
+    function openPopup(idx) {
+      var data = treasureData[idx];
+      if (!data) return;
+      popupTitle.textContent = data.title;
+      popupSubtitle.textContent = data.subtitle;
+      popupBody.innerHTML = data.body.map(function(p) {
+        return '<p>' + p + '</p>';
+      }).join('');
+      overlay.classList.add('treasure-overlay--open');
+    }
+
+    function closePopup() {
+      overlay.classList.remove('treasure-overlay--open');
+    }
+
+    treasures.forEach(function(tr) {
+      tr.addEventListener('click', function() {
+        var idx = Number(tr.getAttribute('data-index'));
+        openPopup(idx);
+      });
+    });
+
+    popupClose.addEventListener('click', closePopup);
+
+    // Click backdrop to close
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closePopup();
+    });
+
+    // ESC to close
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePopup();
+    });
+  })();
   </script>
 
 </body>
