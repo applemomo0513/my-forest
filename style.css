@@ -5,6 +5,20 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Nano';
+  src: url('Nano.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Font3';
+  src: url('3.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Serif fallback stack — no Google Fonts dependency */
 :root {
   --font-serif-en: Georgia, 'Times New Roman', serif;
@@ -161,6 +175,11 @@ button {
   margin-bottom: 1.2rem;
 }
 
+.about-name {
+  font-family: 'Nano', Georgia, 'Times New Roman', 'Noto Serif SC', serif;
+  font-weight: 400;
+}
+
 .page-title::after {
   content: '';
   display: block;
@@ -222,7 +241,7 @@ body.home::before {
 
 .tree-scene::after {
   content: '';
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 3;
   pointer-events: none;
@@ -248,7 +267,7 @@ body.home::before {
 .tree-link--about { left: 38%; top: 18%; width: 19%; }
 .tree-link--writings { left: 26%; top: 52%; width: 19%; }
 .tree-link--gallery { left: 58%; top: 42%; width: 19%; }
-.tree-link--growing { left: 57%; top: 84%; width: 17%; }
+.tree-link--growing { left: 56%; top: 80%; width: 17%; }
 
 .tree-link img {
   display: block;
@@ -363,8 +382,8 @@ body.home::before {
 .root-note .tagline {
   margin: 0 0 1.4rem;
   color: var(--muted);
-  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
-  font-size: 1.05rem;
+  font-family: 'Font3', 'Nano', serif;
+  font-size: 1.30rem;
   font-style: italic;
   font-weight: 400;
   line-height: 1.7;
@@ -372,15 +391,16 @@ body.home::before {
 
 .root-note .signature-inline {
   color: var(--ink);
-  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
-  font-size: 1.2rem;
+  font-family: 'Font3', 'Nano', serif;
+  font-size: 1.45rem;
   font-weight: 500;
 }
 
 .root-note .contact {
   margin: 0 0 0.55rem;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-family: 'Font3', 'Nano', serif;
+  font-size: 1.15rem;
   line-height: 1.7;
   display: flex;
   align-items: center;
@@ -405,8 +425,8 @@ body.home::before {
 .root-note .disciplines {
   margin: 0;
   color: var(--muted);
-  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
-  font-size: 0.95rem;
+  font-family: 'Font3', 'Nano', serif;
+  font-size: 1.20rem;
   font-style: italic;
   font-weight: 400;
   letter-spacing: 0.03em;
@@ -460,8 +480,8 @@ body.home::before {
 
 .ring-center {
   position: absolute;
-  left: calc(3% + 205px);
-  top: 236px;
+  left: calc(3% + 190px);
+  top: 226px;
   z-index: 3;
   width: 116px;
   height: 116px;
@@ -665,27 +685,120 @@ body.home::before {
     repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.22) 0 9px, transparent 9px 18px);
 }
 
-.case-img--voice {
-  background:
-    linear-gradient(135deg, rgba(64, 95, 115, 0.2), rgba(185, 130, 60, 0.13)),
-    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.22) 0 9px, transparent 9px 18px);
+/* === Gallery: Case Files Folder === */
+
+.page--gallery {
+  width: min(960px, calc(100% - 2rem));
 }
 
-.case-img--stage {
-  background:
-    linear-gradient(135deg, rgba(170, 70, 65, 0.18), rgba(105, 125, 90, 0.18)),
-    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.22) 0 9px, transparent 9px 18px);
+/* Desk surface — the folder rests on it */
+.folder-desk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0 3rem;
 }
 
-.case-img span {
-  color: var(--green);
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 1.9rem;
+/* Wrapper: folder image + overlaid content */
+.folder-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 880px;
+}
+
+.folder-bg {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* Content overlaid on the folder image */
+.folder-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 36% 10% 6%
+}
+
+.folder-title {
+  margin: 0 0 2.5rem;
+  color: #372a22;
+  font-family: Georgia, 'Times New Roman', 'Noto Serif SC', serif;
+  font-size: 2.6rem;
   font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.case-img small {
-  color: var(--muted);
+/* Three folder sections stacked vertically */
+.folder-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+  width: 100%;
+}
+
+.folder-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.folder-section-title {
+  margin: 0;
+  color: var(--green);
+  font-family: 'MyFont', Georgia, 'Times New Roman', 'Noto Serif SC', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(128, 104, 77, 0.35);
+}
+
+.case-file-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.case-file-item {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.55;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.case-file-item strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.case-file-item:hover {
+  background: transparent;
+  color: var(--red);
+  transform: translateX(3px);
+}
+
+.case-file-item:active {
+  transform: translateX(3px) scale(0.98);
 }
 
 .case-text {
@@ -1161,12 +1274,12 @@ body.home::before {
 
 .treasure-popup {
   position: relative;
-  width: min(560px, calc(100% - 2rem));
-  max-height: 80vh;
+  width: min(660px, calc(100% - 2rem));
+  max-height: 85vh;
   overflow-y: auto;
-  padding: 2.2rem 2rem 1.8rem;
+  padding: 2.8rem 2.6rem 2.2rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   background:
     linear-gradient(180deg, rgba(255, 248, 236, 0.98), rgba(239, 228, 208, 0.96));
   box-shadow:
@@ -1206,7 +1319,7 @@ body.home::before {
 .treasure-popup h2 {
   margin-bottom: 0.3rem;
   padding-right: 2rem;
-  font-size: 1.45rem;
+  font-size: 1.85rem;
 }
 
 .popup-subtitle {
@@ -1245,6 +1358,16 @@ body.home::before {
 
 .popup-list li {
   margin-bottom: 0.2rem;
+}
+
+.popup-insight {
+  margin-top: 0.6rem;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--gold);
+  color: var(--green) !important;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.8 !important;
 }
 
 .popup-phase {
@@ -1301,6 +1424,34 @@ body.home::before {
   .case-grid,
   .collection-scene {
     grid-template-columns: 1fr;
+  }
+
+  .page--gallery .case-grid {
+    gap: 2.2rem;
+    padding: 1.2rem;
+  }
+
+  .page--gallery .case-img {
+    min-height: 200px;
+  }
+
+  .page--gallery .case-text {
+    padding: 1.4rem;
+  }
+
+  .page--gallery .case-card {
+    border-width: 5px;
+    box-shadow:
+      0 0 0 5px #faf7f0,
+      0 0 0 6px rgba(0,0,0,0.05),
+      4px 5px 0 rgba(47,35,24,0.08),
+      6px 14px 32px rgba(47,35,24,0.12);
+  }
+
+  .page--gallery .case-card::before {
+    top: -17px;
+    width: 7px;
+    height: 7px;
   }
 
   .collection-panel {
@@ -1404,19 +1555,19 @@ body.home::before {
   }
 
   .root-note .tagline {
-    font-size: 0.92rem;
+    font-size: 1.17rem;
   }
 
   .root-note .signature-inline {
-    font-size: 1.05rem;
+    font-size: 1.30rem;
   }
 
   .root-note .contact {
-    font-size: 0.82rem;
+    font-size: 1.07rem;
   }
 
   .root-note .disciplines {
-    font-size: 0.85rem;
+    font-size: 1.10rem;
   }
 
   .writing-toggle {
@@ -1469,5 +1620,65 @@ body.home::before {
 
   .collectible small {
     font-size: 0.8rem;
+  }
+}
+
+/* === Gallery folder responsive === */
+@media (max-width: 900px) {
+  .folder-sections {
+    gap: 1.4rem;
+  }
+
+  .folder-title {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .folder-content {
+    padding: 5% 6% 4%;
+  }
+
+  .case-file-item {
+    font-size: 1.15rem;
+    padding: 0.45rem 0.55rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .folder-desk {
+    padding: 0.5rem 0 2rem;
+  }
+
+  .folder-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .folder-content {
+    padding: 5% 5% 3%;
+  }
+
+  .folder-sections {
+    gap: 1rem;
+  }
+
+  .folder-section-title {
+    font-size: 1.15rem;
+  }
+
+  .case-file-item {
+    font-size: 1rem;
+    padding: 0.4rem 0.5rem;
+    line-height: 1.45;
+  }
+
+  .treasure-popup {
+    width: min(92vw, 660px);
+    padding: 2rem 1.6rem 1.6rem;
+  }
+
+  .treasure-popup h2 {
+    font-size: 1.45rem;
   }
 }

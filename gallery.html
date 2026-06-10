@@ -19,20 +19,45 @@
   </nav>
 
   <main class="page page--gallery">
-    <h1 class="page-title">What have I done?</h1>
-    <p class="page-subtitle">把人的情绪、场景和需求翻译成内容、活动与增长动作。</p>
+    <div class="folder-desk">
+      <div class="folder-wrapper">
+        <img src="files.png" alt="Case Files" class="folder-bg" />
+        <div class="folder-content">
+          <h1 class="folder-title">CASE FILES</h1>
 
-    <div class="tabs" role="tablist" aria-label="作品分类">
-      <button class="tab tab--active" data-tab="see" type="button" role="tab" aria-selected="true">我怎么看人</button>
-      <button class="tab" data-tab="voice" type="button" role="tab" aria-selected="false">我怎么造声音</button>
-      <button class="tab" data-tab="stage" type="button" role="tab" aria-selected="false">我怎么搭场子</button>
+          <div class="folder-sections">
+            <div class="folder-section">
+              <h2 class="folder-section-title">📁 我怎么看人</h2>
+              <ul class="case-file-list">
+                <li><button class="case-file-item" data-case="yogurt" type="button"><strong>某益生菌酸奶品牌</strong>&nbsp;/&nbsp;在数据里找到两类人共同向往的生活</button></li>
+                <li><button class="case-file-item" data-case="cocktail" type="button"><strong>某酒品品牌</strong>&nbsp;/&nbsp;用场景替代品牌发声，让每一类用户都被看见</button></li>
+              </ul>
+            </div>
+
+            <div class="folder-section">
+              <h2 class="folder-section-title">📁 我怎么造声音</h2>
+              <ul class="case-file-list">
+                <li><button class="case-file-item" data-case="home" type="button"><strong>某家电品牌</strong>&nbsp;/&nbsp;找到藏在数据背后真实的人，理解用户真正向往的生活</button></li>
+                <li><button class="case-file-item" data-case="festival" type="button"><strong>某食品品牌</strong>&nbsp;/&nbsp;把转化入口藏进用户的行为路径中，每一次曝光，都不浪费</button></li>
+              </ul>
+            </div>
+
+            <div class="folder-section">
+              <h2 class="folder-section-title">📁 我怎么搭场子</h2>
+              <ul class="case-file-list">
+                <li><button class="case-file-item" data-case="arcade" type="button"><strong>网易游戏IP</strong>&nbsp;/&nbsp;把线上兴趣转化为线下关系</button></li>
+                <li><button class="case-file-item" data-case="wish" type="button"><strong>绘画艺术廊｜马良的许愿神笔</strong>&nbsp;/&nbsp;为创作者与普通用户搭建连接平台</button></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <section class="archive-intro">
-      <p>我从数据、评论、活动现场和真实对话里寻找答案，再把答案变成可执行的策略，写下这几份观察笔记：</p>
-    </section>
-
-    <div id="caseArchive" class="case-grid"></div>
+    <!-- Popup overlay (reuses treasure-popup styles) -->
+    <div class="treasure-overlay" id="caseOverlay" aria-hidden="true">
+      <div class="treasure-popup" id="casePopup" role="dialog" aria-modal="true"></div>
+    </div>
   </main>
 
   <footer class="footer">
@@ -41,110 +66,134 @@
 
   <script>
   var caseData = {
-    see: [
-      {
-        title: '某酸奶品牌',
-        category: '我怎么看人',
-        visual: 'Yogurt',
-        keywords: ['用户洞察', '直播间拉新'],
-        results: ['直播观看量破千万', '新客占比高于大盘35%', '季度销售额同比增长38%'],
-        story: '我在研究产品卖点的同时，也研究人。拆解用户数据时，我发现两群看似不同的人：“抗糖养生派”和“馋嘴星人”。她们的消费动机却非常相似：喜欢音乐、健身和休闲娱乐，希望偶尔放纵，又不想承担负担。于是我建议不要只把“益生菌”当成功能卖点，而是在直播间里，把它翻译成一种更具体的情绪：快乐之后，也可以轻一点。',
-        learning: '很多消费并不是因为用户被说服了。而是因为用户第一次觉得：这个品牌好像理解我。'
-      },
-      {
-        title: '某酒品牌',
-        category: '我怎么看人',
-        visual: 'Cocktail',
-        keywords: ['内容矩阵', '用户场景洞察'],
-        results: ['A3人群同比增长135%', '季度销量同比增长50%'],
-        story: '有一位鸡尾酒客户想在抖音做新品账号矩阵建设。那段时间我看了很多账号，翻了很多评论区，大部分品牌选择做一个“大而全”的官方号，但很少有人认真回答：“人为什么会想喝酒？”后来我发现，用户更在意的是：“闺蜜聚会喝什么”“一个人微醺的时候听什么歌”。他们买的不是酒，而是一种生活切片。于是我建议按照不同场景搭建矩阵：调酒账号负责知识内容、微短剧账号负责情绪场景、主账号负责品牌表达。',
-        learning: '好的内容生态不是统一发声。而是让不同的人，都能找到自己的位置。'
-      }
-    ],
-    voice: [
-      {
-        title: '某家电品牌',
-        category: '我怎么造声音',
-        visual: 'Home',
-        keywords: ['达人营销', '用户迁移洞察'],
-        results: ['达人 ROI 较日常提升 125%', '超行业均值 10%'],
-        story: '最开始，品牌默认合作家居垂类博主，但是后续数据进入瓶颈。我在挖掘达人时发现，一个母婴博主的CTR表现很突出。继续往下看之后，我发现年轻妈妈关注的不只是“育儿”，她们也在看家装、生活方式和理想家庭。她们真正被吸引的，其实是一种：“我也想过这样的生活。”于是我提出新方向：不再硬讲产品，而是把家电放进“儿童房改造”的生活场景里。',
-        learning: '营销很多时候不是“推荐产品”，而是帮助用户想象一种更好的生活。'
-      },
-      {
-        title: '某食品品牌',
-        category: '我怎么造声音',
-        visual: 'Festival',
-        keywords: ['节点曝光', '种草转化'],
-        results: ['累计3万+用户参与', '总播放量5000万', '品牌季度销量同比增长55%'],
-        story: '春节是一个强调热闹、互动和参与感的节点。我研究春节期间的平台内容后发现，真正容易扩散的东西，是能让人顺手参与进去的。所以我们选择“特效挑战赛”和平台抢红包活动冠名的方式。同时，我也在意用户被种草之后会发生什么：他们会搜索、犹豫、继续刷相关视频。于是我提议把购物入口提前藏进这些行为路径里，让品牌有曝光也有转化。',
-        learning: '真正厉害的传播，不是声音有多大，而是人会不会愿意把你的内容继续带进自己的生活里。'
-      }
-    ],
-    stage: [
-      {
-        title: '网易《天下》游戏IP',
-        category: '我怎么搭场子',
-        visual: 'Arcade',
-        keywords: ['线下体验', '用户情绪运营'],
-        results: ['活动日均接待试玩用户超500人次', '线上话题热度突破20w+'],
-        story: '在网易《天下》的 ChinaJoy 项目里，我们复刻了一间“旧网吧”。CRT显示器、机械键盘、组队下副本、点卡……很多玩家走进来的一瞬间，第一反应是：“我以前真的这样玩过。”当时我们也在讨论，怎么让一个偏老用户的游戏重新吸引年轻人。后来我提出，“千禧复古”本身其实已经变成一种新的年轻文化。线下的“复古网吧”开始和线上的达人内容一起传播，coser、游戏玩家、年轻创作者一起进入这个场景，再把它扩散回社交媒体。',
-        learning: '情怀营销，本质不是怀旧，而是重新打开一段被封存的记忆。'
-      },
-      {
-        title: '搜狐校园圈子活动',
-        category: '我怎么搭场子',
-        visual: 'Wish',
-        keywords: ['社区运营', '活动机制设计'],
-        results: ['2万+用户参与', '圈子新增粉丝1000+'],
-        story: '在运营绘画圈时，我发现许多画手希望获得曝光和约稿机会，而许多用户也希望找到合适的画师实现自己的创意。双方都有需求，却缺少连接彼此的渠道。于是我策划了「马良的许愿神笔」：画手上传作品、展示风格完成报名；用户则在约画区发布自己的愿望，画手可以自主接单。',
-        learning: '好的社区运营不是制造内容，而是创造人与人相遇的机会。当连接发生之后，内容会自然生长出来。'
-      }
-    ]
+    yogurt: {
+      title: '某益生菌酸奶品牌',
+      subtitle: '在数据里找到两类人共同向往的生活',
+      category: '我怎么看人',
+      keywords: ['用户洞察', '直播间拉新'],
+      image: '1.png',
+      background: '益生菌酸奶赛道竞争激烈，同类品牌都在卷功能卖点，品牌方希望找到差异化的拉新角度。',
+      judgment: '我主要负责人群标签洞察。在拆解用户数据时，我发现两群看似不同的人：抗糖养生派、馋嘴星人，实际上共享同一种情绪：想快乐一点，又不想有负担。因此区别于其他品牌强调产品功能的营销策略，我建议把产品翻译成一种生活情绪：快乐之后，也可以轻一点。基于这个判断，我协助优化了直播间内容节奏——开场不讲成分，讲场景：运动后、熬夜后、想放松又不想有负担的那一刻。',
+      results: ['直播观看量破千万', '新客占比高于大盘35%', '季度销售额同比增长38%'],
+      learning: '用户购买的不是功能，而是功能背后的身份认同与情绪价值。增长很多时候来自于需求翻译能力。'
+    },
+    cocktail: {
+      title: '某酒品品牌',
+      subtitle: '用场景替代品牌发声，让每一类用户都被看见',
+      category: '我怎么看人',
+      keywords: ['内容矩阵', '品牌增长'],
+      image: '22.png',
+      background: '一个新品低度酒品牌想在抖音从零开始建账号，目标是快速种草目标人群。',
+      judgment: '有一位鸡尾酒客户想在抖音做新品账号矩阵建设。那段时间我看了很多账号，翻了很多评论区，大部分品牌选择做一个"大而全"的官方号，但很少有人认真回答："人为什么会想喝酒？"后来我发现，用户更在意的是："闺蜜聚会喝什么""一个人微醺的时候听什么歌"。他们买的不是酒，而是一种生活切片。于是我建议按照不同场景搭建矩阵：调酒账号负责知识内容、微短剧账号负责情绪场景、主账号负责品牌表达。',
+      results: ['A3人群同比增长135%', '季度销量同比增长50%'],
+      learning: '好的内容生态不是统一发声。而是让不同的人，都能找到自己的位置。'
+    },
+    home: {
+      title: '某家电品牌',
+      subtitle: '找到藏在数据背后真实的人，理解用户真正向往的生活',
+      category: '我怎么造声音',
+      keywords: ['达人营销', '用户迁移洞察'],
+      image: '3.png',
+      background: '垂类达人投放进入增长瓶颈，ROI持续下滑，品牌方需要找到新的流量入口。',
+      judgment: '品牌方的垂类达人投放进入增长瓶颈。我在复盘200+达人数据时，发现一个母婴博主CTR达9.2%，远超同批均值。继续往下看之后，我发现年轻妈妈关注的不只是"育儿"，她们也在看家装、生活方式和理想家庭。她们真正被吸引的，其实是一种："我也想过这样的生活。"于是我提出新方向：不再硬讲产品，而是把家电放进"儿童房改造"的生活场景里。为用户营造理想生活的想象。',
+      results: ['达人 ROI 较垂类达人提升 125%', '超行业均值 10%'],
+      learning: '高转化内容往往不单是产品卖点介绍，而是用户向往的生活内容。'
+    },
+    festival: {
+      title: '某食品品牌',
+      subtitle: '把转化入口藏进用户的行为路径中，每一次曝光，都不浪费',
+      category: '我怎么造声音',
+      keywords: ['UGC运营', '节点营销'],
+      image: '4.png',
+      background: '春节是全年最大的内容节点，品牌方希望在实现曝光的同时提升转化。',
+      judgment: '春节是一个强调热闹、互动和参与感的节点。我研究春节期间的平台内容后发现，真正容易扩散的东西，是能让人顺手参与进去的。所以我建议选择"特效挑战赛"和平台抢红包活动冠名的方式。同时，我也在意用户被种草之后会发生什么：他们会搜索、犹豫、继续刷相关视频。于是我提议把购物入口提前藏进这些行为路径里，让品牌有曝光也有转化。',
+      results: ['累计3万+用户参与', '总播放量5000万', '品牌季度销量同比增长55%'],
+      learning: '扩大品牌曝光量是节点营销的起点，意味着品牌被看见。但用户从看见到购买，中间有很多个犹豫的瞬间。把购物入口提前放进那些行为路径中，兜住流量，才是节点营销的终点。'
+    },
+    arcade: {
+      title: '网易游戏IP',
+      subtitle: '把线上兴趣转化为线下关系',
+      category: '我怎么搭场子',
+      keywords: ['用户运营', '社群活动'],
+      image: '55.png',
+      background: '《天下》是一款有十年以上历史的经典游戏，核心用户年龄偏大，品牌希望在线下活动中找到一个既能唤醒老用户、又能吸引年轻人的切入点。',
+      judgment: '怎么让一个偏老用户的游戏重新吸引年轻人？我提出，老玩家的情感记忆和年轻人的千禧复古审美，是同一个场景的两面。找到这个交叉点，活动才能同时打两类人。于是在 ChinaJoy 线下展会活动里，我们复刻了一间"旧网吧"。CRT显示器、机械键盘、组队下副本、点卡……很多老玩家走进来的一瞬间，第一反应是："我以前真的这样玩过。"很多年轻用户也来线下打卡，和线上的达人内容一起传播，coser、游戏玩家、年轻创作者一起进入这个场景。',
+      results: ['活动日均接待试玩用户超500人次', '线上话题热度突破20w+'],
+      learning: '用户留下来的原因，除了让自己沉浸其中的产品，更多的是他们在这里认识的人。'
+    },
+    wish: {
+      title: '绘画艺术廊｜马良的许愿神笔',
+      subtitle: '为创作者与普通用户搭建连接平台',
+      category: '我怎么搭场子',
+      keywords: ['社区运营', '创作者成长'],
+      image: '6.png',
+      background: '绘画圈里，画手想要曝光和约稿，用户想找画师定制内容，但两边都缺乏一个找到对方的渠道。',
+      judgment: '在运营绘画圈时，我发现许多画手希望获得曝光和约稿机会，而许多用户也希望找到合适的画师实现自己的创意。双方都有需求，却缺少连接彼此的渠道。于是我策划了「马良的许愿神笔」：画手上传作品、展示风格完成报名；用户则在约画区发布自己的愿望，画手可以自主接单。活动本质不是征稿，而是为双方搭建了一个小型创作者市场。',
+      results: ['参与人数2W+', '圈子粉丝增长1000+'],
+      learning: '好的社区运营不仅是制造热闹，而是创造连接。当供需双方都获得价值时，社区自然会真正增长。'
+    }
   };
 
-  var tabs = document.querySelectorAll('.tab');
-  var archive = document.getElementById('caseArchive');
+  var overlay = document.getElementById('caseOverlay');
+  var popup = document.getElementById('casePopup');
 
-  function renderCases(type) {
-    archive.innerHTML = caseData[type].map(function(item) {
-      return [
-        '<article class="case-card">',
-          '<div class="case-img case-img--' + type + '">',
-            '<span>' + item.visual + '</span>',
-            '<small>AI illustration placeholder</small>',
-          '</div>',
-          '<div class="case-text">',
-            '<p class="case-kicker">' + item.category + '</p>',
-            '<h2 class="case-brand">' + item.title + '</h2>',
-            '<div class="keyword-row">' + item.keywords.map(function(keyword) {
-              return '<span>' + keyword + '</span>';
-            }).join('') + '</div>',
-            '<ul class="result-list">' + item.results.map(function(result) {
-              return '<li>' + result + '</li>';
-            }).join('') + '</ul>',
-            '<p class="case-body">' + item.story + '</p>',
-            '<p class="case-insight"><strong>Key learning：</strong>' + item.learning + '</p>',
-          '</div>',
-        '</article>'
-      ].join('');
-    }).join('');
+  function openCase(caseKey) {
+    var item = caseData[caseKey];
+    if (!item) return;
+
+    popup.innerHTML = [
+      '<button class="treasure-popup-close" id="popupClose" type="button" aria-label="关闭">&times;</button>',
+      '<h2>' + item.title + '</h2>',
+      '<p class="popup-subtitle">' + item.subtitle + ' — ' + item.category + '</p>',
+      '<div class="popup-body">',
+        '<p class="popup-section-label">📌 关键词</p>',
+        '<div class="keyword-row">' + item.keywords.map(function(k) {
+          return '<span>' + k + '</span>';
+        }).join('') + '</div>',
+        (item.image ? '<img src="' + item.image + '" alt="' + item.title + '" class="popup-image" />' : ''),
+        '<p class="popup-section-label">📋 背景</p>',
+        '<p>' + item.background + '</p>',
+        '<p class="popup-section-label">💭 我的判断</p>',
+        '<p>' + item.judgment + '</p>',
+        '<p class="popup-section-label">📊 结果与洞察</p>',
+        '<ul class="popup-list">' + item.results.map(function(r) {
+          return '<li>' + r + '</li>';
+        }).join('') + '</ul>',
+        '<p class="popup-insight">' + item.learning + '</p>',
+      '</div>'
+    ].join('');
+
+    overlay.classList.add('treasure-overlay--open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    document.getElementById('popupClose').addEventListener('click', closeCase);
   }
 
-  tabs.forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      var target = tab.getAttribute('data-tab');
-      tabs.forEach(function(item) {
-        item.classList.remove('tab--active');
-        item.setAttribute('aria-selected', 'false');
-      });
-      tab.classList.add('tab--active');
-      tab.setAttribute('aria-selected', 'true');
-      renderCases(target);
+  function closeCase() {
+    overlay.classList.remove('treasure-overlay--open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Click case file items
+  document.querySelectorAll('.case-file-item').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      openCase(btn.getAttribute('data-case'));
     });
   });
 
-  renderCases('see');
+  // Click overlay backdrop to close
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeCase();
+  });
+
+  // Escape key to close
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('treasure-overlay--open')) {
+      closeCase();
+    }
+  });
   </script>
 
 </body>
