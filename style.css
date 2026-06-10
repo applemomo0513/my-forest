@@ -1,20 +1,23 @@
 @font-face {
   font-family: 'MyFont';
-  src: url('my-font.ttf') format('truetype');
+  src: url('my-font.woff2') format('woff2'),
+       url('my-font.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Nano';
-  src: url('Nano.ttf') format('truetype');
+  src: url('Nano.woff2') format('woff2'),
+       url('Nano.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Font3';
-  src: url('3.ttf') format('truetype');
+  src: url('3.woff2') format('woff2'),
+       url('3.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
