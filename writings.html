@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>故事书架 — My Forest</title>
+  <link rel="preload" href="my-font.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="Nano.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="3.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -88,13 +91,13 @@
 
   shelf.innerHTML = [
     '<div class="bookshelf-stage">',
-      '<img class="bookshelf-reference" src="bookshelf.png" alt="六本书并排放在书架上">',
+      '<img class="bookshelf-reference" srcset="bookshelf.webp" src="bookshelf.png" alt="六本书并排放在书架上">',
       '<div class="shelf-overlays">',
-        '<img class="shelf-book" src="shelf1.png" data-book="0" style="left:10.1%;top:4.4%;width:24%;height:90%;" alt="' + writings[0].title + '">',
-        '<img class="shelf-book" src="shelf2.png" data-book="1" style="left:25%;top:5.5%;width:20%;height:88%;" alt="' + writings[1].title + '">',
-        '<img class="shelf-book" src="shelf3.png" data-book="2" style="left:39%;top:10.8%;width:14%;height:82.5%;" alt="' + writings[2].title + '">',
-        '<img class="shelf-book" src="shelf4.png" data-book="3" style="left:52.35%;top:7.5%;width:15%;height:86.8%;" alt="' + writings[3].title + '">',
-        '<img class="shelf-book" src="shelf5.png" data-book="4" style="left:64.2%;top:0%;width:16%;height:94.5%;" alt="' + writings[4].title + '">',
+        '<img class="shelf-book" srcset="shelf1.webp" src="shelf1.png" data-book="0" style="left:10.1%;top:4.4%;width:24%;height:90%;" alt="' + writings[0].title + '">',
+        '<img class="shelf-book" srcset="shelf2.webp" src="shelf2.png" data-book="1" style="left:25%;top:5.5%;width:20%;height:88%;" alt="' + writings[1].title + '">',
+        '<img class="shelf-book" srcset="shelf3.webp" src="shelf3.png" data-book="2" style="left:39%;top:10.8%;width:14%;height:82.5%;" alt="' + writings[2].title + '">',
+        '<img class="shelf-book" srcset="shelf4.webp" src="shelf4.png" data-book="3" style="left:52.35%;top:7.5%;width:15%;height:86.8%;" alt="' + writings[3].title + '">',
+        '<img class="shelf-book" srcset="shelf5.webp" src="shelf5.png" data-book="4" style="left:64.2%;top:0%;width:16%;height:94.5%;" alt="' + writings[4].title + '">',
       '</div>',
       '<div class="book-quote" id="bookQuote"></div>',
     '</div>',
